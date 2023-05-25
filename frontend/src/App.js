@@ -5,9 +5,9 @@ import "./App.css";
 function App() {
   const [message, setMessage] = useState();
   useEffect(() => {
-    fetch("/api/users")
+    fetch("/api/movies")
       .then((res) => res.json())
-      .then((res) => setMessage(`Hello with ${res.length} users`))
+      .then((res) => setMessage(`Hello with ${res.length} movies`))
       .catch(console.error);
   }, [setMessage]);
   return (
