@@ -31,5 +31,11 @@ docker-compose logs db -f # Follow the logs to inspect
 docker-compose restart backend # Restart the backend
 ```
 
+You can manually query the API directly with curl
+```bash
+curl "localhost:8000/movies"
+curl "localhost:8000/movies?title=truman"
+```     
+
 # References
 https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
