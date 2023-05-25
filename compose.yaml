@@ -22,6 +22,7 @@ services:
       - PG_HOST=db
       - PG_USER=postgres
       - PG_PASSWORD=mysecretpassword
+      - OMDB_API_KEY=${OMDB_API_KEY}
     networks:
       - client-side
       - server-side

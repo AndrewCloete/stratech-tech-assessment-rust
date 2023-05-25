@@ -13,6 +13,12 @@ development of this project.
 
 
 # Running
+Create the .env file and add your OMDb API key
+```bash
+cp env.example .env
+vim .env
+```
+
 In the project root run
 ```bash
 docker-compose up -d
