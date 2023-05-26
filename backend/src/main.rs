@@ -1,4 +1,4 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer};
+use actix_web::{delete, get, post, web, App, HttpResponse, HttpServer};
 use deadpool_postgres::Pool;
 use movie::Movie;
 
@@ -77,6 +77,25 @@ async fn upsert_movies(pool: web::Data<Pool>, movie_payload: web::Json<Movie>) -
     }
 }
 
+#[delete("/movies/{imdb_id}")]
+async fn delete_movie(pool: web::Data<Pool>, path: web::Path<String>) -> HttpResponse {
+    let imdb_id = path.into_inner();
+    let client = match pool.get().await {
+        Ok(client) => client,
+        Err(err) => {
+            log::debug!("unable to get postgres client: {:?}", err);
+            return HttpResponse::InternalServerError().json("unable to get postgres client");
+        }
+    };
+    match movie::Movie::delete(&**client, &imdb_id).await {
+        Ok(_) => HttpResponse::Ok().json(()),
+        Err(err) => {
+            log::debug!("unable to delete movie: {:?}", err);
+            return HttpResponse::InternalServerError().json("unable to delete movie");
+        }
+    }
+}
+
 fn address() -> String {
     std::env::var("ADDRESS").unwrap_or_else(|_| "127.0.0.1:8000".into())
 }
@@ -95,6 +114,7 @@ async fn main() -> std::io::Result<()> {
             .service(list_users)
             .service(list_movies)
             .service(upsert_movies)
+            .service(delete_movie)
     })
     .bind(&address)?
     .run()

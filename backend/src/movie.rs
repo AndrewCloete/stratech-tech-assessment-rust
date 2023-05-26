@@ -23,7 +23,7 @@ pub struct Movie {
     pub movie_type: MovieType,
     #[serde(rename = "Poster")]
     pub poster_url: String,
-    pub updated_at: Option<String>,
+    // pub updated_at: Option<DateTime<Utc>>,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
@@ -53,7 +53,7 @@ impl From<Row> for Movie {
                 _ => panic!("invalid movie type"),
             },
             poster_url: row.get(4),
-            updated_at: Some(row.get(5)),
+            // updated_at: Some(row.get(5)),
         }
     }
 }
@@ -61,7 +61,7 @@ impl From<Row> for Movie {
 impl Movie {
     pub async fn all<C: GenericClient>(client: &C) -> Result<Vec<Movie>, tokio_postgres::Error> {
         let stmt = client
-            .prepare("SELECT title, year, imdb_id, movie_type, poster_url, updated_at FROM movies")
+            .prepare("SELECT title, year, imdb_id, movie_type, poster_url FROM movies")
             .await?;
         let rows = client.query(&stmt, &[]).await?;
 
@@ -74,10 +74,10 @@ impl Movie {
     ) -> Result<(), tokio_postgres::Error> {
         let stmt = client
             .prepare(
-                "INSERT INTO movies (title, year, imdb_id, movie_type, poster_url, updated_at) \
-                 VALUES ($1, $2, $3, $4, $5, $6) \
+                "INSERT INTO movies (title, year, imdb_id, movie_type, poster_url) \
+                 VALUES ($1, $2, $3, $4, $5) \
                  ON CONFLICT (imdb_id) DO UPDATE SET \
-                 title = $1, year = $2, movie_type = $4, poster_url = $5, updated_at = $6",
+                 title = $1, year = $2, movie_type = $4, poster_url = $5",
             )
             .await?;
         client
@@ -96,6 +96,17 @@ impl Movie {
                 ],
             )
             .await?;
+        Ok(())
+    }
+
+    pub async fn delete<C: GenericClient>(
+        client: &C,
+        imdb_id: &str,
+    ) -> Result<(), tokio_postgres::Error> {
+        let stmt = client
+            .prepare("DELETE FROM movies WHERE imdb_id = $1")
+            .await?;
+        client.execute(&stmt, &[&imdb_id]).await?;
         Ok(())
     }
 
