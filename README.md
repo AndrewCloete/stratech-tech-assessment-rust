@@ -5,6 +5,7 @@ prior attempts at this exercise. Github Copilot was enabled during the
 development of this project. 
 
 # Todo
+- Get postgres client using middleware
 - Test on M1. State if it does not work.
 
 # Context
@@ -23,6 +24,7 @@ have not ommited them due to lack of knowledge or experience.
 - Use a more standard MVC design pattern for both the backend and frontend
 - Use Typescript for the frontend
 - Unit tests! 
+- Wrap the db connection pool in a middleware
 
 ## Why Rust?
 I've slowly been upskilling in Rust for the past couple of months so I'm using

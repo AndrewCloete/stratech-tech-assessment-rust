@@ -14,6 +14,12 @@ class MovieService {
       body: JSON.stringify(movie),
     }).then((res) => res.json());
   }
+
+  async removeFavorite(imdbID) {
+    return fetch(`/api/movies/${imdbID}`, {
+      method: "DELETE",
+    }).then((res) => res.json());
+  }
 }
 
 export default MovieService;

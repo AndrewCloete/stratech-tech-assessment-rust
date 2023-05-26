@@ -50,31 +50,58 @@ function App() {
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    const movieService = new MovieService();
-    movieService.getFavorites().then((res) => setFavoriteMovies(res));
+    refreshFavorites();
   }, []);
+
+  async function refreshFavorites() {
+    const movieService = new MovieService();
+    const favorites = await movieService.getFavorites();
+    setFavoriteMovies(favorites);
+  }
 
   async function searchOMDB() {
     const movieService = new MovieService();
     const results = await movieService.searchOMDB(searchTerm);
+
+    // Add favorite status to search results
+    results.forEach((movie) => {
+      if (favoriteMovies.some((m) => m.imdbID === movie.imdbID)) {
+        movie.isFavorite = true;
+      } else {
+        movie.isFavorite = false;
+      }
+    });
     setSearchResults(results);
   }
 
   function onStar(movie) {
     return async function () {
-      // const movieService = new MovieService();
-      // const results = await movieService.addFavorite(movie);
-      // setFavoriteMovies(results);
       if (favoriteMovies.some((m) => m.imdbID === movie.imdbID)) {
         return;
       }
-      setFavoriteMovies([...favoriteMovies, movie]);
+      // Add favorite status to search results
+      setSearchResults(
+        searchResults.map((m) => {
+          if (m.imdbID === movie.imdbID) {
+            m.isFavorite = true;
+          }
+          return m;
+        })
+      );
+      const movieService = new MovieService();
+      await movieService.addFavorite(movie);
+      // Explicitly deciding against optimistic local state update here for
+      // simplicity.
+      await refreshFavorites();
     };
   }
 
   function onUnStar(imdbID) {
     return async function () {
-      setFavoriteMovies(favoriteMovies.filter((m) => m.imdbID !== imdbID));
+      const movieService = new MovieService();
+      await movieService.removeFavorite(imdbID);
+      // Again, no optimistic local state update here.
+      await refreshFavorites();
     };
   }
 
