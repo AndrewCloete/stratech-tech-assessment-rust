@@ -4,6 +4,46 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MovieService from "./services/movieService";
 
+function MovieSearchResultRow(props) {
+  const { movie, onStar } = props;
+  return (
+    <div className="movieRow">
+      <p>{movie.Title}</p>
+      <p>{movie.Year}</p>
+      <Button variant="contained" onClick={onStar(movie)}>
+        Star!
+      </Button>
+    </div>
+  );
+}
+
+function MovieSearchResults(props) {
+  const { movies, onStar } = props;
+  return (
+    <div className="movieRows">
+      {movies.map((m) => {
+        return <MovieSearchResultRow id={m.imdbId} movie={m} onStar={onStar} />;
+      })}
+    </div>
+  );
+}
+
+function FavoriteMovieCard(props) {
+  const { movie, onUnStar } = props;
+  return (
+    <div className="movieCard">
+      <p>{movie.Title}</p>
+      <p>{movie.Year}</p>
+      <div>
+        <img className="moviePoster" src={movie.Poster} />
+      </div>
+      <Button variant="contained" onClick={onUnStar(movie.imdbID)}>
+        Unstar!
+      </Button>
+    </div>
+  );
+}
+
 function App() {
   const [searchTerm, setSearchTerm] = useState();
   const [favoriteMovies, setFavoriteMovies] = useState([]);
@@ -20,6 +60,24 @@ function App() {
     setSearchResults(results);
   }
 
+  function onStar(movie) {
+    return async function () {
+      // const movieService = new MovieService();
+      // const results = await movieService.addFavorite(movie);
+      // setFavoriteMovies(results);
+      if (favoriteMovies.some((m) => m.imdbID === movie.imdbID)) {
+        return;
+      }
+      setFavoriteMovies([...favoriteMovies, movie]);
+    };
+  }
+
+  function onUnStar(imdbID) {
+    return async function () {
+      setFavoriteMovies(favoriteMovies.filter((m) => m.imdbID !== imdbID));
+    };
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -33,25 +91,12 @@ function App() {
         <Button variant="contained" onClick={searchOMDB}>
           Search
         </Button>
-        <p>
-          {searchResults?.map((m) => {
-            return (
-              <div id={m.imdbId}>
-                <p>{m.Title}</p>
-                <p>{m.Year}</p>
-                <p>{m.Poster}</p>
-              </div>
-            );
-          }) || "Loading..."}
-        </p>
+        {<MovieSearchResults movies={searchResults} onStar={onStar} /> ||
+          "Loading..."}
         <p>
           {favoriteMovies?.map((m) => {
             return (
-              <div id={m.imdbId}>
-                <p>{m.Title}</p>
-                <p>{m.Year}</p>
-                <p>{m.Poster}</p>
-              </div>
+              <FavoriteMovieCard id={m.imdbId} movie={m} onUnStar={onUnStar} />
             );
           }) || "Loading..."}
         </p>
