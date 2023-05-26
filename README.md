@@ -7,6 +7,27 @@ development of this project.
 # Todo
 - Test on M1. State if it does not work.
 
+# Context
+## Were this going to production
+In the book, *Software Engineering at Google* (O'Reilly Media, Inc., 2020) the
+authors emphasize that a key parameter of any software project is the **expected
+lifetime** of the code. Since this value can vary anywhere from a couple of
+minutes to decades, I believe this is a key parameter that must drive the
+software and infrastructure design.
+
+Since this project will likely be in use for only a couple of minutes, I have
+explicitly discarded some of the usual patterns and practices one might expect
+in a typical full-stack application. I mention this to ensure it is clear that I
+have not ommited them due to lack of knowledge or experience.
+
+- Use a more standard MVC design pattern for both the backend and frontend
+- Use Typescript for the frontend
+- Unit tests! 
+
+## Why Rust?
+I've slowly been upskilling in Rust for the past couple of months so I'm using
+every excuse I can to use it.
+
 # Dependencies
 - `docker`
 - `docker-compose` >= 2.x.x
