@@ -9,6 +9,8 @@ pub enum MovieType {
     Series,
     #[serde(rename = "episode")]
     Episode,
+    #[serde(rename = "game")]
+    Game,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
@@ -50,6 +52,8 @@ impl From<Row> for Movie {
             movie_type: match row.get(3) {
                 "movie" => MovieType::Movie,
                 "series" => MovieType::Series,
+                "episode" => MovieType::Episode,
+                "game" => MovieType::Game,
                 _ => panic!("invalid movie type"),
             },
             poster_url: row.get(4),
@@ -91,6 +95,7 @@ impl Movie {
                         MovieType::Movie => "movie",
                         MovieType::Series => "series",
                         MovieType::Episode => "episode",
+                        MovieType::Game => "game",
                     },
                     &movie.poster_url,
                 ],
