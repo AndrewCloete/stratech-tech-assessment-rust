@@ -12,36 +12,88 @@ code {
     monospace;
 }
 
+.searchBox {
+  color: azure;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
 .movieRows {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   margin: 10px;
 }
 
 .movieRow {
-  font-size: small;
+  font-size: large;
   display: flex;
   border-color: azure;
   padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.movieHover:hover {
+  background-color: #333842;
+}
+
+.favoriteMovies {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 .movieCard {
-  font-size: small;
+  font-size: large;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  padding: 20px;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 10px;
   width: 200px;
   height: 300px;
+  box-shadow: 5px 5px #20232a;
+  justify-content: space-between;
 }
+
 .moviePoster {
   max-width: 50%;
   padding: 10px;
+}
+
+.star:hover {
+  color: gold;
+}
+
+.starFavorite {
+  color: gold;
+}
+
+.unstar {
+  color: gray;
+}
+
+.unstar:hover {
+  color: red;
+}
+
+.item {
+  margin-left: 10px;
+  margin-top: 5px;
 }

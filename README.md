@@ -25,6 +25,8 @@ have not ommited them due to lack of knowledge or experience.
 - Use Typescript for the frontend
 - Unit tests! 
 - Wrap the db connection pool in a middleware
+- Front-end paging of movies
+- Replace Material UI with a own components
 
 ## Why Rust?
 I've slowly been upskilling in Rust for the past couple of months so I'm using
