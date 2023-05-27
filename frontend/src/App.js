@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MovieService from "./services/movieService";
-import { AccessAlarm, ThreeDRotation, Star, Close } from "@mui/icons-material";
+import { Star, Close } from "@mui/icons-material";
 
 function MovieSearchResultRow(props) {
   const { movie, onStar } = props;
@@ -26,7 +30,9 @@ function MovieSearchResults(props) {
   return (
     <div className="movieRows">
       {movies.map((m) => {
-        return <MovieSearchResultRow id={m.imdbId} movie={m} onStar={onStar} />;
+        return (
+          <MovieSearchResultRow key={m.imdbID} movie={m} onStar={onStar} />
+        );
       })}
     </div>
   );
@@ -38,7 +44,7 @@ function FavoriteMovies(props) {
     <div className="favoriteMovies">
       {movies.map((m) => {
         return (
-          <FavoriteMovieCard id={m.imdbId} movie={m} onUnStar={onUnStar} />
+          <FavoriteMovieCard key={m.imdbID} movie={m} onUnStar={onUnStar} />
         );
       })}
     </div>
@@ -58,6 +64,12 @@ function FavoriteMovieCard(props) {
     </div>
   );
 }
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 function App() {
   const [searchTerm, setSearchTerm] = useState();
@@ -133,41 +145,56 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="searchBar">
-          <div className="item searchBox">
-            <TextField
-              id="searchTerm"
-              label="Search by Title"
-              variant="outlined"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              value={searchTerm}
-            />
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <div className="App">
+        <header className="App-header">
+          <div className="searchBar">
+            <div className="item searchBox">
+              <TextField
+                id="searchTerm"
+                label="Search movie by title"
+                variant="outlined"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.keyCode === 13) {
+                    searchOMDB();
+                  }
+                }}
+                value={searchTerm}
+                margin="dense"
+              />
+            </div>
+            <div className="searchButtons">
+              <div className="item">
+                <Button
+                  variant="contained"
+                  onClick={searchOMDB}
+                  className="something"
+                >
+                  Search
+                </Button>
+              </div>
+              <div className="item">
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setSearchTerm("");
+                    setSearchResults([]);
+                  }}
+                >
+                  Clear
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="item">
-            <Button
-              variant="contained"
-              onClick={searchOMDB}
-              className="something"
-            >
-              Search
-            </Button>
-          </div>
-          <div className="item">
-            <Button variant="outlined" onClick={() => setSearchResults([])}>
-              Clear
-            </Button>
-          </div>
-        </div>
-        {<MovieSearchResults movies={searchResults} onStar={onStar} /> ||
-          "Loading..."}
-        <h2>My Favorites</h2>
-        <p>
+          {<MovieSearchResults movies={searchResults} onStar={onStar} /> ||
+            "Loading..."}
+          {favoriteMovies.length !== 0 ? <h3>My Favorites</h3> : null}
           <FavoriteMovies movies={favoriteMovies} onUnStar={onUnStar} />
-        </p>
-      </header>
-    </div>
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 

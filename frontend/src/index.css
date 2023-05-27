@@ -12,16 +12,17 @@ code {
     monospace;
 }
 
-.searchBox {
-  color: azure;
-}
-
 .searchBar {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
   margin: 10px;
+}
+
+.searchButtons {
+  display: flex;
+  flex-direction: row;
 }
 
 .movieRows {
@@ -95,5 +96,4 @@ code {
 
 .item {
   margin-left: 10px;
-  margin-top: 5px;
 }

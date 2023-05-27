@@ -5,7 +5,7 @@ prior attempts at this exercise. Github Copilot was enabled during the
 development of this project. 
 
 # Todo
-- Get postgres client using middleware
+- Add screenshots to README
 - Test on M1. State if it does not work.
 
 # Context
@@ -63,4 +63,9 @@ curl "localhost:8000/movies?title=truman"
 ```     
 
 # References
-https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
+- https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
+- Favicon generated with DALL-E
+
+
+
+npm i --save @mui/icons-material --package-lock-only
