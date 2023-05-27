@@ -4,11 +4,22 @@ indicated and acknowledged by means of references. I have not consulted any
 prior attempts at this exercise. Github Copilot was enabled during the
 development of this project. 
 
-# Todo
-- Add screenshots to README
-- Test on M1. State if it does not work.
+
+![Screenshot](./img/screenshot.png)
 
 # Context
+## Architecture
+I used the traditional 3-tier architecture with a frontend, backend and
+database. I used an awesome-compose template as the boilerplate.
+https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
+
+This the template already provides the DB migrations component which the Rust
+ecosystem already makes so effortless yet robust.
+
+## Why Rust?
+I've slowly been upskilling in Rust for the past couple of months so I'm using
+every excuse I can to use it.
+
 ## Were this going to production
 In the book, *Software Engineering at Google* (O'Reilly Media, Inc., 2020) the
 authors emphasize that a key parameter of any software project is the **expected
@@ -28,17 +39,19 @@ have not ommited them due to lack of knowledge or experience.
 - Front-end paging of movies
 - Replace Material UI with a own components
 
-## Why Rust?
-I've slowly been upskilling in Rust for the past couple of months so I'm using
-every excuse I can to use it.
+## Misc
+- Favicon generated with DALL-E
+
+# Todo
+- [ ] Test on M1. State if it does not work.
+
 
 # Dependencies
 - `docker`
 - `docker-compose` >= 2.x.x
 
-
 # Running
-Create the .env file and add your OMDb API key
+Create the `.env` file and add your OMDb API key
 ```bash
 cp env.example .env
 vim .env
@@ -62,10 +75,5 @@ curl "localhost:8000/movies"
 curl "localhost:8000/movies?title=truman"
 ```     
 
-# References
-- https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
-- Favicon generated with DALL-E
+Visit `localhost:3000` in your browser to view the frontend
 
-
-
-npm i --save @mui/icons-material --package-lock-only
