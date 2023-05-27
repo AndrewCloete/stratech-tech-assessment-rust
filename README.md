@@ -30,7 +30,7 @@ software and infrastructure design.
 Since this project will likely be in use for only a couple of minutes, I have
 explicitly discarded some of the usual patterns and practices one might expect
 in a typical full-stack application. I mention this to ensure it is clear that I
-have not ommited them due to lack of knowledge or experience.
+have not omitted them due to lack of knowledge or experience. Here is a shortlist of some things I would do differently if this were going to production:
 
 - Use a more standard MVC design pattern for both the backend and frontend
 - Use Typescript for the frontend
