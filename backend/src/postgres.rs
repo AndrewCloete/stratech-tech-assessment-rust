@@ -2,16 +2,10 @@ use deadpool_postgres::{Config, Pool};
 use tokio_postgres::NoTls;
 use tokio_postgres_migration::Migration;
 
-const SCRIPTS_UP: [(&str, &str); 2] = [
-    (
-        "0001_create-users",
-        include_str!("../migrations/0001_create-users_up.sql"),
-    ),
-    (
-        "0002_create-movies",
-        include_str!("../migrations/0002_create-movies_up.sql"),
-    ),
-];
+const SCRIPTS_UP: [(&str, &str); 2] = [(
+    "0002_create-movies",
+    include_str!("../migrations/0002_create-movies_up.sql"),
+)];
 
 fn create_config() -> Config {
     let mut cfg = Config::new();
