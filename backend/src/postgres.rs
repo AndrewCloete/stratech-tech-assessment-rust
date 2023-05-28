@@ -2,7 +2,7 @@ use deadpool_postgres::{Config, Pool};
 use tokio_postgres::NoTls;
 use tokio_postgres_migration::Migration;
 
-const SCRIPTS_UP: [(&str, &str); 2] = [(
+const SCRIPTS_UP: [(&str, &str); 1] = [(
     "0002_create-movies",
     include_str!("../migrations/0002_create-movies_up.sql"),
 )];
