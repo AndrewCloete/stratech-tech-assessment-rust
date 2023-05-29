@@ -12,7 +12,7 @@ This is a traditional 3-tier architecture with a frontend, backend and
 relational database. I used an awesome-compose template as the boilerplate.
 https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
 
-This the template already provides the DB migrations component which the Rust
+The template already provides the DB migrations component which the Rust
 ecosystem already makes so effortless yet robust.
 
 ## Why Rust?
