@@ -5,6 +5,9 @@ use movie::Movie;
 mod movie;
 mod postgres;
 
+// For a production application the DB connection would be fetched as part of
+// the middleware This would remove the duplication in each handler.
+
 #[get("/movies")]
 async fn list_movies(
     pool: web::Data<Pool>,

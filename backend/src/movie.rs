@@ -25,6 +25,7 @@ pub struct Movie {
     pub movie_type: MovieType,
     #[serde(rename = "Poster")]
     pub poster_url: String,
+    // These forensic fields would be critical in prod
     // pub updated_at: Option<DateTime<Utc>>,
 }
 
