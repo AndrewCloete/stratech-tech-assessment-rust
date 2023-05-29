@@ -4,25 +4,6 @@ use movie::Movie;
 
 mod movie;
 mod postgres;
-mod user;
-
-#[get("/users")]
-async fn list_users(pool: web::Data<Pool>) -> HttpResponse {
-    let client = match pool.get().await {
-        Ok(client) => client,
-        Err(err) => {
-            log::debug!("unable to get postgres client: {:?}", err);
-            return HttpResponse::InternalServerError().json("unable to get postgres client");
-        }
-    };
-    match user::User::all(&**client).await {
-        Ok(list) => HttpResponse::Ok().json(list),
-        Err(err) => {
-            log::debug!("unable to fetch users: {:?}", err);
-            return HttpResponse::InternalServerError().json("unable to fetch users");
-        }
-    }
-}
 
 #[get("/movies")]
 async fn list_movies(
@@ -111,7 +92,6 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(pg_pool.clone()))
-            .service(list_users)
             .service(list_movies)
             .service(upsert_movies)
             .service(delete_movie)
