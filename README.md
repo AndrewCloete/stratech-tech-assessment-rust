@@ -9,8 +9,8 @@ development of this project.
 
 # Context
 ## Architecture
-I used the traditional 3-tier architecture with a frontend, backend and
-database. I used an awesome-compose template as the boilerplate.
+This is a traditional 3-tier architecture with a frontend, backend and
+relational database. I used an awesome-compose template as the boilerplate.
 https://github.com/docker/awesome-compose/tree/master/react-rust-postgres
 
 This the template already provides the DB migrations component which the Rust
@@ -41,10 +41,6 @@ have not omitted them due to lack of knowledge or experience. Here is a shortlis
 
 ## Misc
 - Favicon generated with DALL-E
-
-# Todo
-- [ ] Test on M1. State if it does not work.
-
 
 # Dependencies
 - `docker`
