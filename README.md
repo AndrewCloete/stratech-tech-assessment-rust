@@ -1,8 +1,7 @@
 # Declaration
-This is my own work and that all sources that I have used are indicated and
-acknowledged by means of references. I have not consulted any prior attempts at
-this exercise. Github Copilot was enabled during the development of this
-project. 
+This is my own work and all sources used are indicated and acknowledged by means
+of references where appropriate. I have not consulted any prior attempts at this
+exercise. Github Copilot was enabled during the development of this project. 
 
 # Screenshots
 ![Screenshot](./img/screenshot.png)
