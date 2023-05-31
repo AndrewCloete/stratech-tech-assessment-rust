@@ -72,7 +72,7 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
